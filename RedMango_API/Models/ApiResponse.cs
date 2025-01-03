@@ -14,4 +14,4 @@ namespace RedMango_API.Models
         public object Result { get; set; }
     }
 }
-}
+
