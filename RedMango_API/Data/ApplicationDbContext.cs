@@ -17,8 +17,8 @@ namespace RedMango_API.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<MenuItem>().HasData(new MenuItem
-            {//https://redmangoimages01.blob.core.windows.net/redmangoimages/carrot love.jpg
-                Id = 1,
+          
+            { Id = 1,
                 Name = "Spring Roll",
                 Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                 Image = "https://redmangoimages01.blob.core.windows.net/redmango/spring roll.jpg",
@@ -84,7 +84,7 @@ namespace RedMango_API.Data
                 Id = 8,
                 Name = "Carrot Love",
                 Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
-                Image = "https://redmangoimages01.blob.core.windows.net/redmango/carrot love.jpg",
+                Image = "https://redmangoimages01.blob.core.windows.net/redmangoimages/carrot love.jpg",
                 Price = 4.99,
                 Category = "Dessert",
                 SpecialTag = ""
