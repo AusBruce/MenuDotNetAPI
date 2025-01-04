@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using RedMango_API.Data;
 using RedMango_API.Models;
 using RedMango_API.Models.Dto;
+using RedMango_API.Services;
+using RedMango_API.Utility;
 using System.Net;
 
 namespace RedMango_API.Controllers
@@ -13,12 +15,15 @@ namespace RedMango_API.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly ApiResponse _response;
-        private object _blobService;
-        private object menuItemCreateDTO;
+        private readonly IBlobService _blobService;
+      
+       
 
-        public MenuItemController(ApplicationDbContext db)
+        public MenuItemController(ApplicationDbContext db,IBlobService blobService)
         {
             _db = db;
+            
+            _blobService = blobService;
 
             _response = new ApiResponse();
         }
@@ -65,6 +70,8 @@ namespace RedMango_API.Controllers
                         _response.IsSuccess = false;
                         return BadRequest(_response);
                     }
+
+                    string fileName = $"{Guid.NewGuid()}{Path.GetExtension(menuItemCreateDTO.File.FileName)}";
                     MenuItem menuItemToCreate = new()
                     {
                         Name = menuItemCreateDTO.Name,
@@ -72,7 +79,10 @@ namespace RedMango_API.Controllers
                         Category = menuItemCreateDTO.Category,
                         SpecialTag = menuItemCreateDTO.SpecialTag,
                         Description = menuItemCreateDTO.Description,
+                        Image = await _blobService.UploadBlob(fileName,SD.SD_Storage_Container,menuItemCreateDTO.File)
                     };
+                    _db.MenuItems.Add(menuItemToCreate);
+                    _db.SaveChanges();
                     // Add the menuItemToCreate to the database here
                     // await _db.MenuItems.AddAsync(menuItemToCreate);
                     // await _db.SaveChangesAsync();
