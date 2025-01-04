@@ -36,7 +36,7 @@ namespace RedMango_API.Controllers
             return Ok(_response);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetMenuItem")]
         public async Task<IActionResult> GetItemMenu(int id)
         {
             if (id == 0)
@@ -83,6 +83,10 @@ namespace RedMango_API.Controllers
                     };
                     _db.MenuItems.Add(menuItemToCreate);
                     _db.SaveChanges();
+
+                    _response.Result = menuItemToCreate;
+                    _response.StatusCode = HttpStatusCode.Created;
+                    return CreatedAtRoute("GetMenuItem", new { id = menuItemToCreate.Id }, _response);
                     // Add the menuItemToCreate to the database here
                     // await _db.MenuItems.AddAsync(menuItemToCreate);
                     // await _db.SaveChangesAsync();
