@@ -41,7 +41,8 @@ namespace RedMango_API.Controllers
         {
             if (id == 0)
             {
-                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.IsSuccess = false;
                 return NotFound(_response);
             }
 
@@ -49,7 +50,8 @@ namespace RedMango_API.Controllers
 
             if (menuItem == null)
             {
-                _response.StatusCode = HttpStatusCode.NotFound;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                _response.IsSuccess = false;
                 return NotFound(_response);
             }
 
